@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- Spring与MyBatis的整合 -->
+<configuration>
+
+	<settings>
+		<!-- 使全局的映射器启用或禁用缓存。 -->
+		<setting name="cacheEnabled" value="true"/>
+		
+		<!-- 控制台输出执行的sql -->
+         <setting name="logImpl" value="STDOUT_LOGGING" /> 
+	</settings>
+	
+
+
+	<!-- 设置别名 -->
+	<typeAliases>
+		<typeAlias alias="userBean" type="com.org.meify.entity.UserBean" />
+		<typeAlias alias="logBean" type="com.org.meify.entity.LogBean" />
+		<typeAlias alias="logQueryBean" type="com.org.meify.entity.LogQueryBean" />
+	</typeAliases>
+	
+	<!-- 所有的mapper映射文件 -->
+	<mappers>
+		<mapper resource="config/mapper/UserMapper.xml" />
+		<mapper resource="config/mapper/LogMapper.xml" />
+	</mappers>
+	
+</configuration>  

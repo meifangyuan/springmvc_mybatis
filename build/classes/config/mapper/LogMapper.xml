@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 日志表增删改查操作 -->
+<mapper namespace="com.org.meify.dao.LogDao">
+
+	<!-- 二级缓存，移除最久未被使用的缓存对象，刷新时间间隔60秒，最大缓存对象512个，结果只读 -->
+	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" />
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+
+	<resultMap id="logResultMap" type="com.org.meify.entity.LogBean" > <!-- type同mybatis-config.xml中的alias实体类别名 -->
+		<!--主键映射 -->
+		<id property="id" column="log_id"></id>
+		<!--普通字段映射 -->
+		<result property="description" column="log_descrption"></result>
+		<result property="method" column="log_method"></result>
+		<result property="params" column="log_params"></result>
+		<result property="operator" column="log_operator"></result>
+		<result property="type" column="log_type"></result>
+		<result property="ip" column="log_ip"></result>
+		<result property="exceptionCode" column="log_exceptioncode"></result>
+		<result property="exceptionDetail" column="log_exceptiondetail"></result>
+		<result property="time" column="log_time"></result>
+	</resultMap>
+
+	<insert id="insertLog" parameterType="logBean">
+		insert into
+		t_log(log_description,log_method,log_params,log_operator,log_type,log_ip,log_exceptioncode,log_exceptiondetail,log_time)
+		values(#{description},#{method},#{params},#{operator},#{type},#{ip},#{exceptionCode},#{exceptionDetail},#{time})
+	</insert>
+
+	
+
+	<!-- 开启二级缓存 -->
+
+	<select id="selectByCondition" parameterType="logQueryBean" resultMap="logResultMap" useCache="true">
+		select * from t_log where 1=1
+			<if test="startTime!=null">
+	         and log_time &gt;= #{startTime}
+	        </if>
+	     	<if test="endTime!=null">
+	          and log_time &lt;= #{endTime}
+	        </if>
+		order by log_time DESC
+		limit #{startIndex},#{pageSize}  
+	</select>
+	
+	<select id="getNumberByCondition" parameterType="logQueryBean" resultType="long">
+        select count(log_id) from t_log  where 1=1
+			<if test="startTime!=null">
+	        and  log_time &gt;= #{startTime}
+	        </if>
+	     	<if test="endTime!=null">
+	          and log_time &lt;= #{endTime}
+	        </if>  
+    </select>
+
+
+</mapper>
