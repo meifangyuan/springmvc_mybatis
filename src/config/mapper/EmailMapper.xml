@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 用户表增删改查操作 -->
+<mapper namespace="com.org.meify.dao.EmailDao">
+
+	<!-- 二级缓存，移除最久未被使用的缓存对象，刷新时间间隔60秒，最大缓存对象512个，结果只读 -->
+	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true" />
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+
+	<resultMap id="emailResultMap" type="com.org.meify.entity.EmailBean" > <!-- type同mybatis-config.xml中的alias实体类别名 -->
+		<!--主键映射 -->
+		<id property="id" column="email_id"></id>
+		<!--普通字段映射 -->
+		<result property="from" column="email_from"></result>
+		<result property="to" column="email_to"></result>
+		<result property="subject" column="email_subject"></result>
+		<result property="content" column="email_content"></result>
+		<result property="time" column="email_time"></result>
+		<result property="success" column="email_success"></result>
+	</resultMap>
+
+	<insert id="insertEmail" parameterType="emailBean">
+		insert into
+		t_email(email_from, email_to, email_subject, email_content, email_time, email_success)
+		values(#{from},#{to},#{subject},#{content},#{time},#{success})
+	</insert>
+
+	<!-- 开启二级缓存 -->
+	<select id="selectByCondition" parameterType="emailQueryBean" resultMap="emailResultMap" useCache="true">
+		select * from t_email where 1=1
+			<if test="startTime!=null">
+	         and email_time &gt;= #{startTime}
+	        </if>
+	     	<if test="endTime!=null">
+	          and email_time &lt;= #{endTime}
+	        </if>
+		order by email_time DESC
+		limit #{startIndex},#{pageSize}  
+	</select>
+	
+	<select id="getNumberByCondition" parameterType="emailQueryBean" resultType="long">
+        select count(email_id) from t_email  where 1=1
+			<if test="startTime!=null">
+	        and  email_time &gt;= #{startTime}
+	        </if>
+	     	<if test="endTime!=null">
+	          and email_time &lt;= #{endTime}
+	        </if>  
+    </select>
+    
+
+</mapper>
