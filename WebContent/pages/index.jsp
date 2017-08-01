@@ -61,6 +61,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	   }
                        }
                    ]
+               },
+               {
+                   text : "邮件管理",
+                   state : "closed",
+                   children : [
+                	   {
+                           text : "发送邮件",
+                           attributes : {
+                        	   url : "<%=basePath%>toSendEmail"
+                           }
+                       },
+                       {
+                    	   text: "历史邮件",
+                    	   attributes : {
+                    		   url : "<%=basePath%>toHistoryEmail"
+                    	   }
+                       }
+                   ]
                }
            ]
        }

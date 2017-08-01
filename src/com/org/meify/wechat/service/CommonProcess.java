@@ -19,8 +19,8 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import com.org.meify.common.Constant;
-import com.org.meify.util.HttpUtil;
+import com.org.meify.wechat.common.Constant;
+import com.org.meify.wechat.util.HttpUtil;
 /**
  * @ClassName: CreateMenu
  * @Description: 创建公众号菜单
