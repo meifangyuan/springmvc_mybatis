@@ -12,20 +12,21 @@
 		<!-- 控制台输出执行的sql -->
          <setting name="logImpl" value="STDOUT_LOGGING" /> 
 	</settings>
-	
-
 
 	<!-- 设置别名 -->
 	<typeAliases>
 		<typeAlias alias="userBean" type="com.org.meify.entity.UserBean" />
 		<typeAlias alias="logBean" type="com.org.meify.entity.LogBean" />
 		<typeAlias alias="logQueryBean" type="com.org.meify.entity.LogQueryBean" />
+		<typeAlias alias="emailBean" type="com.org.meify.entity.EmailBean" />
+		<typeAlias alias="emailQueryBean" type="com.org.meify.entity.EmailQueryBean" />
 	</typeAliases>
 	
 	<!-- 所有的mapper映射文件 -->
 	<mappers>
 		<mapper resource="config/mapper/UserMapper.xml" />
 		<mapper resource="config/mapper/LogMapper.xml" />
+		<mapper resource="config/mapper/EmailMapper.xml" />
 	</mappers>
 	
 </configuration>  

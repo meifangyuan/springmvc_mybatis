@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	<!-- 新增用户 -->
-	<div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+	<div id="dlg" class="easyui-dialog" style="width:400px;height:280px;margin-top:300px;padding:20px 20px"
 			closed="true" buttons="#dlg-buttons">
 		<div class="ftitle">用户信息</div>
 		<form id="fm" method="post">

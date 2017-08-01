@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.org.meify.service.WeChatProcess;
-import com.org.meify.util.SignUtil;
+import com.org.meify.wechat.service.WeChatProcess;
+import com.org.meify.wechat.util.SignUtil;
 
 /**
  * @ClassName: WeChatServlet

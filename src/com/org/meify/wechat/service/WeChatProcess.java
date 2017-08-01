@@ -7,15 +7,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.org.meify.common.Constant;
-import com.org.meify.message.Article;
-import com.org.meify.message.ImageMessage;
-import com.org.meify.message.NewsMessage;
-import com.org.meify.message.TextMessage;
-import com.org.meify.message.VedioMessage;
-import com.org.meify.message.VoiceMessage;
-import com.org.meify.util.TulingUtil;
-import com.org.meify.util.XmlUtil;
+import com.org.meify.wechat.common.Constant;
+import com.org.meify.wechat.message.Article;
+import com.org.meify.wechat.message.ImageMessage;
+import com.org.meify.wechat.message.NewsMessage;
+import com.org.meify.wechat.message.TextMessage;
+import com.org.meify.wechat.message.VedioMessage;
+import com.org.meify.wechat.message.VoiceMessage;
+import com.org.meify.wechat.util.TulingUtil;
+import com.org.meify.wechat.util.XmlUtil;
 
 /**
 * @ClassName: WeChatProcess
