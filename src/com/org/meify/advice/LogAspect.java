@@ -83,17 +83,16 @@ public class LogAspect {
          HttpSession session = request.getSession();
          
          //读取session中的用户  
-         UserBean loginUser=(UserBean)session.getAttribute("user");
-         String operator = loginUser.getUserName();
-
+         String operator = "";
+         if(session.getAttribute("user") != null) {
+             UserBean loginUser=(UserBean)session.getAttribute("user");
+             operator = loginUser.getUserName();
+         }
         
         String targetName = point.getTarget().getClass().getName();  
         String methodName = point.getSignature().getName();  
         Object[] arguments = point.getArgs(); 
         StringBuffer sb = new StringBuffer();
-//        for(Object obj : arguments) {
-//        	sb.append(obj.toString());
-//        }
         String params = sb.toString();
         
         String operationType = "";

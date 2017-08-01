@@ -3,34 +3,44 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>easyui/themes/color.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>easyui/demo/demo.css">
-    <script type="text/javascript" src="<%=basePath %>easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="<%=basePath %>easyui/jquery.easyui.min.js"></script>
-    <title>发送邮件</title>
-    
-	<script type="text/javascript">	 
+<head>
+<base href="<%=basePath%>">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath %>easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath %>easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath %>easyui/themes/color.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath %>easyui/demo/demo.css">
+<script type="text/javascript" src="<%=basePath %>easyui/jquery.min.js"></script>
+<script type="text/javascript"
+	src="<%=basePath %>easyui/jquery.easyui.min.js"></script>
+<title>发送邮件</title>
+
+<script type="text/javascript">	 
+		var ids = [];
+
 		function toSendEmail(){
-			$('#dlg').dialog('open').dialog('setTitle','发送邮件');
-			$('#fm').form('clear');
+			 var rows = $('#dg').datagrid('getSelections');
+			 if(rows.length>=1) {
+			    for(var i=0; i<rows.length; i++){
+			    	var id = rows[i].id;
+			    	ids.push(id);
+			    }
+				$('#dlg').dialog('open').dialog('setTitle','发送邮件');
+				$('#fm').form('clear');
+			 } else {
+				 alert('请选择用户');
+			 }
+
 		}
 		
 		function sendEmail(){
-		    var ids = [];
-		    var rows = $('#dg').datagrid('getSelections');
-		    alert(rows.length);
-		    for(var i=0; i<rows.length; i++){
-		    	var id = rows[i].id;
-		    	alert("id===" + id);
-		    	ids.push(id);
-		    }
+		    
 		    alert(ids.join(','));
 		    
 		    
@@ -55,16 +65,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		}
 	</script>
-  </head>
-  
+</head>
+
 <body>
 
- 	<table id="dg" title="消息通知" class="easyui-datagrid" style="width:750px;height:365px"
-			url="<%=basePath %>getAllUser"
-			idField="itemid"
-			singleSelect="false"
-			toolbar="#toolbar" pagination="true"
-			rownumbers="true" fitColumns="true" singleSelect="true">
+	<table id="dg" title="消息通知" class="easyui-datagrid"
+		style="width: 750px; height: 365px" url="<%=basePath %>getAllUser"
+		idField="itemid" singleSelect="false" toolbar="#toolbar"
+		pagination="true" rownumbers="true" fitColumns="true"
+		singleSelect="true">
 		<thead>
 			<tr>
 				<th field="ck" checkbox="true"></th>
@@ -73,33 +82,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="email" width="50">邮箱</th>
 			</tr>
 		</thead>
-	</table> 
-	
+	</table>
+
 	<div id="toolbar">
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="toSendEmail()">发送邮件</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton"
+			iconCls="icon-add" plain="true" onclick="toSendEmail()">发送邮件</a>
 	</div>
-	
-	
-	<!-- 新增用户 -->
-	<div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
-			closed="true" buttons="#dlg-buttons">
-		<div class="ftitle">填写邮件</div>
+
+
+	<!-- 填写邮件 -->
+	<div id="dlg" class="easyui-dialog"
+		style="width: 400px; height: 320px; padding: 10px 20px" closed="true"
+		buttons="#dlg-buttons">
 		<form id="fm" method="post">
-			
-			<div class="fitem">
-				<label>标题:</label>
-				<input name="title" class="easyui-validatebox" required="true">
+			<div style="margin-bottom: 20px">
+				<div>标题</div>
+				<input class="easyui-textbox" name="title" required="true"
+					data-options="prompt:'Enter a email subject...'"
+					style="width: 300px; height: 32px">
 			</div>
-			
-			<div class="fitem">
-				<label>内容:</label>
-				<input name="content" class="easyui-validatebox" required="true">
+			<div style="margin-bottom: 20px">
+				<div>内容:</div>
+				<input class="easyui-textbox" class="content" required="true"
+					data-options="multiline:true" style="width: 300px; height: 100px">
 			</div>
+
 		</form>
 	</div>
 	<div id="dlg-buttons">
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" onclick="sendEmail()">发送</a>
-		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton"
+			iconCls="icon-ok" onclick="sendEmail()">发送</a> <a
+			href="javascript:void(0);" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
-  </body>
+</body>
 </html>
