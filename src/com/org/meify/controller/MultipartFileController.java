@@ -72,15 +72,15 @@ public class MultipartFileController {
 			
 			// 获取工程的绝对路径
 			String projectAbsolutePath = request.getServletContext().getRealPath("");
-			String destPath = projectAbsolutePath + "/WEB-INF/images/" + file.getOriginalFilename();
+			String destPath = projectAbsolutePath + "/images/" + file.getOriginalFilename();
 			
 			File destFile = new File(destPath);
 			System.out.println("saveFile path:" + destFile.getAbsolutePath());
 			file.transferTo(destFile);
 			
-			return "/success";
+			return "/common/success";
 		}
-		return "/fail";
+		return "/common/fail";
 	}
 	
 	/**
