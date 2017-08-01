@@ -42,7 +42,9 @@ public class WeChatProcess {
 			} else if(msgType.equals("image")) {
 				res = processImageMessage(requestMap);
 			} else if(msgType.equals("voice")) {
-				res = processVoiceMessage(requestMap);
+				String recognition = requestMap.get("Recognition");
+				String content = new TulingUtil().getResponse(recognition);
+				res = processTextMessage(requestMap, content);
 			} else if(msgType.equals("vedio")) {
 				res = processVedioMessage(requestMap);
 			} else if(msgType.equals("shortvideo")) {
@@ -66,7 +68,6 @@ public class WeChatProcess {
 					} else if(eventKey.equals("team_introduction")) {
 						res = teamIntroduction(requestMap);
 					}
-					//res = processTextMessage(requestMap, "菜单点击事件,key："+eventKey);
 				}
 			} else {
 				res = processTextMessage(requestMap, "未知操作！");
@@ -289,7 +290,7 @@ public class WeChatProcess {
 		news.setTitle("梅方元");
 		news.setDescription("个人简介");
 		String picUrl = Constant.APP_URL + "images/meify.jpg";
-		String url = Constant.APP_URL + "pages/meify.html";
+		String url = Constant.APP_URL + "pages/wechat/meify.html";
 		news.setPicUrl(picUrl);
 		news.setUrl(url);
 		

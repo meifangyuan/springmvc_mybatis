@@ -17,12 +17,10 @@ package com.org.meify.wechat.common;
 */
 public class Constant {
 
-	public static final String APP_URL = "http://aa19469e.ngrok.io/wechat/";
+	public static final String APP_URL = "http://aef3a513.ngrok.io/springmvc_mybatis/wechat/";
 	
 	public static final String APP_ID = "wx62a4f514ea56a091";
 	
 	public static final String APP_SECRET = "6de953ccbb0a24ce7df6e3c74590a45b";
-	
-	
 	
 }
