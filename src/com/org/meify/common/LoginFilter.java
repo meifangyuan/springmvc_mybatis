@@ -26,13 +26,14 @@ public class LoginFilter implements Filter {
 		System.out.println("LoginFilter过滤器被销毁......");
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws Exception {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String url = httpRequest.getRequestURI();
 		System.out.println("request url===" + url);
 		
 		String exceptUrl = config.getInitParameter("exceptUrls");
 		
+		throw new BussinessException("故意抛出的异常");
 		
 		if(!url.contains("toLogin") && !url.contains("login")) {
 			System.out.println("非放行url, 检查是否已登录");
